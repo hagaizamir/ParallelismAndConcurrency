@@ -10,6 +10,23 @@ import java.util.function.Consumer;
 public class Main {
 
     public static void main(String[] args) {
+        //consumer
+        //shutdown
+        
+        ExecutorService threadPool = Executors.newFixedThreadPool(4);
+        for (int i = 0; i <10 ; i++) {
+            threadPool.execute(()->{
+                try {
+                    Thread.sleep(10000);
+                    threadPool.execute((Main::displayTime));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            });
+
+        }
+        threadPool.shutdown();
 
         
         SheepHerd herd = new SheepHerd();
@@ -41,6 +58,11 @@ public class Main {
 
 
     }
+
+    public static void displayTime() {
+        System.out.println();
+    }
+
     public static void  doStuff (){
         System.out.println("Doing Stuff");
     }
