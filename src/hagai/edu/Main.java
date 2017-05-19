@@ -9,58 +9,32 @@ import java.util.function.Consumer;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         //consumer
         //shutdown
         
         ExecutorService threadPool = Executors.newFixedThreadPool(4);
-        for (int i = 0; i <10 ; i++) {
-            threadPool.execute(()->{
-                try {
-                    Thread.sleep(10000);
-                    threadPool.execute((Main::displayTime));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        Future<String> futureResults = threadPool.submit(()->{
 
-            });
-
-        }
-        threadPool.shutdown();
-
-        
-        SheepHerd herd = new SheepHerd();
-        ExecutorService pool = Executors.newFixedThreadPool(4)  ;
-        pool.execute(herd::addSheepAndCount);
-
-       ScheduledExecutorService sched =  Executors.newScheduledThreadPool(1)    ;
-       sched.scheduleAtFixedRate(()->{
-           System.out.println(LocalTime.now());
-
-           },1,3,TimeUnit.SECONDS);
-       pool.execute(herd::addSheepAndCount);
-      
+           Thread.sleep(1000);
+            return "Surprise!";
+        })  ;
 
 
-        ArrayList<String> data = new ArrayList<>();
-        data.add("A");
-        data.add("B");
-        data.add("C");
-        data.add("D");
-
-        data.forEach(Main::readData)  ;
+        System.out.println("Main");
+        System.out.println("Main is doing some work");
+        System.out.println("Main is now waiting for the future results");
+        System.out.println(futureResults.get());
+        System.out.println("Main is now waiting for the future results");  
 
 
-        ExecutorService service = Executors.newFixedThreadPool(4);
-        service.execute(Main::doStuff);
-
-        service.shutdown();
+         threadPool.shutdown();
 
 
     }
 
     public static void displayTime() {
-        System.out.println();
+        System.out.println(LocalTime.now());
     }
 
     public static void  doStuff (){
