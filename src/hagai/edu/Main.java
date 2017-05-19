@@ -8,34 +8,39 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Thread t = new Thread(() -> {
+        SheepHerd herd = new SheepHerd();
+        for (int i = 0; i <10 ; i++) {
+            new Thread(()->herd.addSheepAndCount(),String.valueOf(i)).start();
 
-        });
-        t.start();
+        }
 
-        new Thread(()->{}).start();
-
-        Runnable r = ()-> {};
-        r.run();
-
-        Callable<String> c = ()-> "Hello World";
-
-        ArrayList<String> data = new ArrayList<>();
-        data.add("A");
-        data.add("B");
-        data.add("C");
-        data.add("D");
-
-        data.forEach();
-
-        Consumer <String> consumer  = (letter)-> {
-        };
-
-        data.forEach(s-> System.out.println(s.toLowerCase()));
-
-
-
-
+//        //will make the main tread sleep
+//        //Thread.sleep(1000);
+//
+//        //favour encapsulation over inheritance
+//
+//        Thread t = new Thread(() -> {
+//
+//            while (true){
+//                System.out.println("Hello");
+//                //will make the 2nd thread sleep
+//                try {
+//                    Thread.sleep(5000);//don't use the cpu
+//                } catch (InterruptedException e) {
+//                    //get rid of any resources and make the tread stop
+//                    //clean up
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        });
+//        t.start();
+//
+//      //  t.interrupt();
+//
+//
+//
+//
 
     }
 }
